@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: toleration-demo
+  # these are replica set labels
+  labels:
+    purpose: toleration-demo
+    project: roboshop
+spec:
+  replicas: 4
+  selector:
+    # these labels are used to select pods
+    matchLabels:
+      purpose: toleration-demo
+      project: roboshop
+  # pod definition
+  template:
+    metadata:
+      labels:
+        purpose: toleration-demo
+        project: roboshop
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+    nodeSelector:
+      kubernetes.io/hostname: ip-192-168-44-111.ec2.internal
